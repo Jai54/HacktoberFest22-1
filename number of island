@@ -1,0 +1,37 @@
+ void dfs(vector<vector<int>>& g,int i,int j,int bi,int bj, vector<pair<int,int>>&v)
+    {
+        int r=g.size();
+        int c=g[0].size();
+        
+        if(i<0 or i>=r or j<0 or j>=c or g[i][j]!=1)
+        {
+            return ;
+        }
+        g[i][j]=0;
+        v.push_back({i-bi,j-bj});
+        dfs(g,i+1,j,bi,bj,v);
+        dfs(g,i-1,j,bi,bj,v);
+        dfs(g,i,j+1,bi,bj,v);
+        dfs(g,i,j-1,bi,bj,v);
+    }
+    
+    
+  
+    int countDistinctIslands(vector<vector<int>>& g) {
+        int r=g.size();
+        int c=g[0].size();
+        set<vector<pair<int,int>>>s;
+        for(int i=0;i<r;i++)
+        {
+            for(int j=0;j<c;j++)
+            {
+                if(g[i][j]==1)
+                {
+                    vector<pair<int,int>>v;
+                    dfs(g,i,j,i,j,v);
+                    s.insert(v);
+                }
+            }
+        }
+        return s.size();
+    }
